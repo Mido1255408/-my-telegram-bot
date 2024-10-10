@@ -13,10 +13,7 @@ def start(update: Update, context: CallbackContext) -> None:
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
-    if update.message:
-        update.message.reply_text('مرحباً بك في بوت الربح! هذا هو المكان الذي يمكنك فيه استكشاف تطبيقات لزيادة دخلك. اختر "تطبيقات الربح" لرؤية الخيارات المتاحة:', reply_markup=reply_markup)
-    elif update.callback_query:
-        update.callback_query.message.reply_text('مرحباً بك في بوت الربح! هذا هو المكان الذي يمكنك فيه استكشاف تطبيقات لزيادة دخلك. اختر "تطبيقات الربح" لرؤية الخيارات المتاحة:', reply_markup=reply_markup)
+    update.message.reply_text('مرحباً بك في بوت الربح! هذا هو المكان الذي يمكنك فيه استكشاف تطبيقات لزيادة دخلك. اختر "تطبيقات الربح" لرؤية الخيارات المتاحة:', reply_markup=reply_markup)
 
 # دالة عرض معلومات البوت
 def bot_info(update: Update, context: CallbackContext) -> None:
@@ -29,8 +26,7 @@ def bot_info(update: Update, context: CallbackContext) -> None:
     )
 
     keyboard = [
-        [InlineKeyboardButton("رجوع", callback_data='back_to_welcome')],
-        [InlineKeyboardButton("ابدأ", callback_data='back_to_welcome')]
+        [InlineKeyboardButton("رجوع", callback_data='back_to_welcome')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -47,8 +43,7 @@ def show_apps(update: Update, context: CallbackContext) -> None:
         [InlineKeyboardButton("برنامج MOBROG", callback_data='mobrog_info')],
         [InlineKeyboardButton("برنامج ySense", callback_data='ysense_info')],
         [InlineKeyboardButton("برنامج Paidwork-App", callback_data='paidwork_info')],
-        [InlineKeyboardButton("رجوع", callback_data='back_to_welcome')],
-        [InlineKeyboardButton("ابدأ", callback_data='back_to_welcome')]
+        [InlineKeyboardButton("رجوع", callback_data='back_to_welcome')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -58,7 +53,7 @@ def show_apps(update: Update, context: CallbackContext) -> None:
 def back_to_welcome(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
     query.answer()
-    start(update.callback_query, context)
+    start(query, context)
 
 # دالة عرض معلومات برنامج Poll Pay
 def poll_pay_info(update: Update, context: CallbackContext) -> None:
@@ -72,8 +67,7 @@ def poll_pay_info(update: Update, context: CallbackContext) -> None:
     )
     
     keyboard = [
-        [InlineKeyboardButton("رجوع", callback_data='show_apps')],
-        [InlineKeyboardButton("ابدأ", callback_data='back_to_welcome')]
+        [InlineKeyboardButton("رجوع", callback_data='show_apps')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -91,8 +85,7 @@ def swagbucks_info(update: Update, context: CallbackContext) -> None:
     )
     
     keyboard = [
-        [InlineKeyboardButton("رجوع", callback_data='show_apps')],
-        [InlineKeyboardButton("ابدأ", callback_data='back_to_welcome')]
+        [InlineKeyboardButton("رجوع", callback_data='show_apps')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -110,8 +103,7 @@ def mobrog_info(update: Update, context: CallbackContext) -> None:
     )
 
     keyboard = [
-        [InlineKeyboardButton("رجوع", callback_data='show_apps')],
-        [InlineKeyboardButton("ابدأ", callback_data='back_to_welcome')]
+        [InlineKeyboardButton("رجوع", callback_data='show_apps')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -129,8 +121,7 @@ def ysense_info(update: Update, context: CallbackContext) -> None:
     )
 
     keyboard = [
-        [InlineKeyboardButton("رجوع", callback_data='show_apps')],
-        [InlineKeyboardButton("ابدأ", callback_data='back_to_welcome')]
+        [InlineKeyboardButton("رجوع", callback_data='show_apps')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -148,8 +139,7 @@ def paidwork_info(update: Update, context: CallbackContext) -> None:
     )
 
     keyboard = [
-        [InlineKeyboardButton("رجوع", callback_data='show_apps')],
-        [InlineKeyboardButton("ابدأ", callback_data='back_to_welcome')]
+        [InlineKeyboardButton("رجوع", callback_data='show_apps')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -157,7 +147,7 @@ def paidwork_info(update: Update, context: CallbackContext) -> None:
 
 # الدالة الرئيسية لتشغيل البوت
 def main() -> None:
-    updater = Updater(TOKEN)
+    updater = Updater(TOKEN, use_context=True)
     
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler('start', start))
